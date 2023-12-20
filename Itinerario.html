@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+      body {
+        font-family: "'Exo 2'", sans-serif;
+        background-color: #f4f4f4;
+        margin: 5vw;
+        padding: 2vh;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .dia {
+        border-top: black solid 1px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2vh;
+        padding: 1vh 0;
+        animation: linear reveal both;
+        animation-range: entry 5% cover 30%;
+        animation-timeline: view();
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          translate: 0 100px;
+        }
+        50% {
+          opacity: 0.1;
+        }
+        to {
+          opacity: 1;
+          translate: 0 0;
+        }
+      }
+      .button {
+        font-size: 30px;
+      }
+      .button:hover {
+        cursor: pointer;
+        content: "&minus;";
+      }
+      .image {
+        transition: 0.5s;
+        max-width: 30%;
+        filter: drop-shadow(30px 10px 4px #000000);
+        margin-bottom: 50px;
+      }
+      .image:hover {
+        transition: 0.5s;
+        filter: drop-shadow(15px 40px 4px #000000);
+      }
+
+      .gallery {
+        --g: 8px; /* the gap */
+        --s: 400px; /* the size */
+
+        display: grid;
+        border-radius: 50%;
+      }
+      .gallery > img {
+        grid-area: 1/1;
+        width: 400px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 50%;
+        transform: translate(var(--_x, 0), var(--_y, 0));
+        cursor: pointer;
+        z-index: 0;
+        transition: 0.3s, z-index 0s 0.3s;
+      }
+      .gallery img:hover {
+        --_i: 1;
+        z-index: 1;
+        transition: transform 0.2s, clip-path 0.3s 0.2s, z-index 0s;
+      }
+      .gallery:hover img {
+        transform: translate(0, 0);
+      }
+      .gallery > img:nth-child(1) {
+        clip-path: polygon(
+          50% 50%,
+          calc(50% * var(--_i, 0)) calc(120% * var(--_i, 0)),
+          0 calc(100% * var(--_i, 0)),
+          0 0,
+          100% 0,
+          100% calc(100% * var(--_i, 0)),
+          calc(100% - 50% * var(--_i, 0)) calc(120% * var(--_i, 0))
+        );
+        --_y: calc(-1 * var(--g));
+      }
+      .gallery > img:nth-child(2) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% - 100% * var(--_i, 0)) 0,
+          100% 0,
+          100% 100%,
+          calc(100% - 100% * var(--_i, 0)) 100%,
+          calc(100% - 120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: var(--g);
+      }
+      .gallery > img:nth-child(3) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0)),
+          100% calc(100% - 120% * var(--_i, 0)),
+          100% 100%,
+          0 100%,
+          0 calc(100% - 100% * var(--_i, 0)),
+          calc(50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0))
+        );
+        --_y: var(--g);
+      }
+      .gallery > img:nth-child(4) {
+        clip-path: polygon(
+          50% 50%,
+          calc(120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% * var(--_i, 0)) 0,
+          0 0,
+          0 100%,
+          calc(100% * var(--_i, 0)) 100%,
+          calc(120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: calc(-1 * var(--g));
+      }
+
+      .basic-info {
+        animation: fadein 2s;
+
+        transition: 0.5s;
+        margin-top: 2vh;
+        padding: 1vh 2vw;
+
+        border-style: outset;
+      }
+      .basic-info:hover {
+        transition: 0.5s;
+        border-style: inset;
+      }
+
+      .show {
+        animation: fade-in 2s;
+      }
+      .hide {
+        animation: fade-out 2s;
+        display: none;
+      }
+
+      .fade-in {
+        animation-name: fade-in;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fade-out {
+        animation-name: fade-out;
+      }
+
+      @keyframes fade-out {
+        from {
+          opacity: 1;
+          transform: scale(3);
+        }
+
+        to {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="day-container">
+      <div id="root" class="dia">
+        <h2>DAY 1</h2>
+        <div class="button btn-1">&plus;</div>
+      </div>
+      <div class="basic-info hide day-1">
+        <h4>Route: <em>21km</em></h4>
+        <h4>Topography: <em> plain</em></h4>
+        <p>
+          Riders will be greeted at 17:00 hrs. at the meeting point near
+          Guanajuato city, at traditional Mexican ranch. Upon arrival to the
+          Ranch. the riders will have the opportunity to meet the rest of our
+          staff, and get to know about the journey’s details and explanation.
+          All this will occur during the reception, with a delicious welcome
+          cocktail on the terrace of the ranch. A welcome dinner is organized at
+          the Ranch, where a Ranchero barbecue will be prepared by our cooks,
+          enlivened by soft Mexican music and the light of our terrace campfire.
+          We will enjoy tonight's accommodation in a glamorous camp
+        </p>
+
+        <img
+          class="image"
+          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg"
+          alt=""
+        />
+      </div>
+      <div id="root" class="dia">
+        DAY 2
+        <div class="button">&plus;</div>
+      </div>
+    </div>
+    <script>
+      const days = [
+        {
+          name: "Beginning of the program",
+          places: [
+            { name: "place1", description: "description1" },
+            { name: "place2", description: "description2" },
+          ],
+          topography: "Flat & Mountainous",
+          route: "21 km",
+          description: `Riders will be greeted at 17:00 hrs. at the meeting point near Guanajuato city, at traditional Mexican ranch.
+
+Upon arrival to the Ranch. the riders will have the opportunity to meet the rest of our staff, and get to know about the journey’s details and explanation. All this will occur during the reception, with a delicious welcome cocktail on the terrace of the ranch.
+
+A welcome dinner is organized at the Ranch, where a Ranchero barbecue will be prepared by our cooks, enlivened by soft Mexican music and the light of our terrace campfire.
+We will enjoy tonight's accommodation in a glamorous camp`,
+        },
+        {
+          name: "DAY 2",
+          places: [
+            { name: "place3", description: "description3" },
+            { name: "place4", description: "description4" },
+          ],
+        },
+        {
+          name: "Beginning of the program",
+          places: [
+            { name: "place1", description: "description1" },
+            { name: "place2", description: "description2" },
+          ],
+          topography: [
+            { name: "place1", description: "description1" },
+            { name: "place2", description: "description2" },
+          ],
+          route: "21 km",
+        },
+        {
+          name: "Beginning of the program",
+          places: [
+            { name: "place1", description: "description1" },
+            { name: "place2", description: "description2" },
+          ],
+          topography: [
+            { name: "place1", description: "description1" },
+            { name: "place2", description: "description2" },
+          ],
+          route: "21 km",
+        },
+      ];
+      let currDay = 1;
+      days.forEach((days) => {
+        let html = `
+        <div id="root" class="dia">
+        DAY ${currDay++} - ${days.name}
+        <div class="button">&plus;</div>
+      </div>
+        `;
+        document.querySelector(".day-container").innerHTML += html;
+      });
+      const button = document.querySelector(".btn-1");
+      button.addEventListener("click", () => {
+        const basicInfo = document.querySelector(".day-1");
+        basicInfo.classList.toggle("hide");
+        basicInfo.classList.toggle("show");
+      });
+
+      /*GALERIA
+      <div class="gallery">
+          <img
+            src="https://picsum.photos/id/174/400/400"
+            alt="a hot air balloon"
+          />
+          <img
+            src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
+            alt="a sky photo of an old city"
+          />
+          <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
+          <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
+        </div>*/
+    </script>
+  </body>
+</html>
