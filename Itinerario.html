@@ -46,7 +46,8 @@
       }
       .image {
         transition: 0.5s;
-        max-width: 30%;
+        max-width: 30% !important;
+        min-width: 200px !important;
         filter: drop-shadow(30px 10px 4px #000000);
         margin-bottom: 50px;
       }
@@ -145,13 +146,15 @@
       }
 
       .show {
-        animation: fade-in 2s;
+        animation: fade-in 1.5s;
       }
-      .hide {
-        animation: fade-out 2s;
-        display: none;
+      .hide-animation {
+        animation: fade-out 1s;
       }
 
+      .hide {
+        display: none;
+      }
       .fade-in {
         animation-name: fade-in;
       }
@@ -173,127 +176,300 @@
       @keyframes fade-out {
         from {
           opacity: 1;
-          transform: scale(3);
         }
 
         to {
           opacity: 0;
-          transform: scale(0);
+        }
+      }
+
+      /*porgress bar*/
+      @import url("https://fonts.googleapis.com/css?family=Bitter");
+
+      * {
+        /* border: 1px solid red; */
+      }
+
+      :root {
+        --font: "Bitter", serif;
+        --title-size: 36px;
+        --sub-size: 18px;
+      }
+
+      body {
+        background: #e5e5e5;
+      }
+
+      .title h1 {
+        margin: 4px;
+        font-family: var(--font);
+        font-size: var(--title-size);
+        color: #333;
+      }
+
+      .title p {
+        margin: 4px;
+        padding-bottom: 25px;
+        font-family: var(--font);
+        font-size: var(--sub-size);
+        color: #888;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .github {
+        margin: 40px;
+      }
+
+      .progress {
+        display: inline-block;
+        width: 400px;
+        height: 50px;
+        margin: 35px;
+        border-radius: 20px;
+        background: #f9f9f9;
+      }
+
+      .bar {
+        border-radius: 20px;
+        width: 0%;
+        height: 100%;
+        transition: width;
+        transition-duration: 1s;
+        transition-timing-function: cubic-bezier(0.36, 0.55, 0.63, 0.48);
+      }
+
+      .mobile {
+        display: none;
+      }
+
+      .shadow {
+        /* 25 50 */
+        box-shadow: 0px 45px 50px rgba(0, 0, 0, 0.25);
+      }
+
+      .aztec {
+        background-color: #97c680;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%230d37c2' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      @media screen and (max-width: 500px) {
+        .progress {
+          width: calc(100vw * 0.7);
+          /* height: calc(100vw * 0.7 * 0.145); */
+          height: 40px;
+          margin: 25px;
+        }
+
+        .github {
+          margin: 20px;
+        }
+
+        .desktop {
+          display: none;
+        }
+
+        .mobile {
+          display: inherit;
         }
       }
     </style>
   </head>
   <body>
-    <div class="day-container">
-      <div id="root" class="dia">
-        <h2>DAY 1</h2>
-        <div class="button btn-1">&plus;</div>
-      </div>
-      <div class="basic-info hide day-1">
-        <h4>Route: <em>21km</em></h4>
-        <h4>Topography: <em> plain</em></h4>
-        <p>
-          Riders will be greeted at 17:00 hrs. at the meeting point near
-          Guanajuato city, at traditional Mexican ranch. Upon arrival to the
-          Ranch. the riders will have the opportunity to meet the rest of our
-          staff, and get to know about the journey’s details and explanation.
-          All this will occur during the reception, with a delicious welcome
-          cocktail on the terrace of the ranch. A welcome dinner is organized at
-          the Ranch, where a Ranchero barbecue will be prepared by our cooks,
-          enlivened by soft Mexican music and the light of our terrace campfire.
-          We will enjoy tonight's accommodation in a glamorous camp
-        </p>
+    <div class="day-container"></div>
 
-        <img
-          class="image"
-          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg"
-          alt=""
-        />
-      </div>
-      <div id="root" class="dia">
-        DAY 2
-        <div class="button">&plus;</div>
-      </div>
-    </div>
     <script>
+      const routes = [21, 27, 37, 12, 27, 23];
+      let total = 0;
+      routes.forEach((route) => {
+        total += route;
+      });
+      let curr = 0;
+
+      let currRoute = 0;
       const days = [
         {
           name: "Beginning of the program",
-          places: [
-            { name: "place1", description: "description1" },
-            { name: "place2", description: "description2" },
-          ],
-          topography: "Flat & Mountainous",
-          route: "21 km",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: false,
+          route: false,
           description: `Riders will be greeted at 17:00 hrs. at the meeting point near Guanajuato city, at traditional Mexican ranch.
 
-Upon arrival to the Ranch. the riders will have the opportunity to meet the rest of our staff, and get to know about the journey’s details and explanation. All this will occur during the reception, with a delicious welcome cocktail on the terrace of the ranch.
+                              Upon arrival to the Ranch. the riders will have the opportunity to meet the rest of our staff, and get to know about the journey’s details and explanation. All this will occur during the reception, with a delicious welcome cocktail on the terrace of the ranch.
 
-A welcome dinner is organized at the Ranch, where a Ranchero barbecue will be prepared by our cooks, enlivened by soft Mexican music and the light of our terrace campfire.
-We will enjoy tonight's accommodation in a glamorous camp`,
+                              A welcome dinner is organized at the Ranch, where a Ranchero barbecue will be prepared by our cooks, enlivened by soft Mexican music and the light of our terrace campfire.
+                              We will enjoy tonight's accommodation in a glamorous camp`,
         },
         {
-          name: "DAY 2",
-          places: [
-            { name: "place3", description: "description3" },
-            { name: "place4", description: "description4" },
-          ],
-        },
-        {
-          name: "Beginning of the program",
-          places: [
-            { name: "place1", description: "description1" },
-            { name: "place2", description: "description2" },
-          ],
-          topography: [
-            { name: "place1", description: "description1" },
-            { name: "place2", description: "description2" },
-          ],
+          name: "Colomitos – Guanajuato City",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Flat & Mountainous",
           route: "21 km",
+          description: `After a delicious breakfast at the Ranch, horses are waiting for us, then after an appropriate allocation of horses to riders, we will start our adventure from Colomitos to Peñafiel, a ride along through rural communities in the area, until reaching the foothills of the Montecillo mountains, where we start to ascend from 1,900 m.a.s.l. towards the old Cardones hacienda at 2,236 m.a.s.l., crossing landscapes of changing nature with elements of the semi-desert and the majesty of the central mountain range.
+                  We will have the opportunity to observe several ancient ruins of mines and haciendas over hundreds of years old, as Santo Niño, nestled in the mountains from the times of the Spanish colony. We will cross the "Cardo River" and we can, if we wish, swim in its natural rettery of filtered water coming from the sacred mountain spring water. An small natural pool in the middle of the desert.
+                  A day of amazing landscapes with stunning natural scenarios that remind us, the western films of Clint Eastwood, Jhon Wayne & Gary Cooper. REAL MEXICO!!
+
+                  Riding all the way up the mountains until we reach, the ancient remains of the Cardones Hacienda and its Lienzo Charro (Mexican horse Arena) at Peñafiel.
+
+                  Our horses will remain there for the night, and we will be transferred to the hotel located in the heart of Guanajuato’s historic center, having the chance to see "La Presa de la Olla" A beautiful and ancient dam, which is accessible through a beautiful passage built from the viceregal era.
+
+                  Guanajuato, a colonial city with beautiful buildings, that contain the elements from the two main cultures that created the city, ~ indigenous and Hispanic~, and marking the source of our Mexican nation, conserves its architectural features and environment. Protected by its inhabitants and government, state and municipal, Guanajuato was declared by UNESCO as the “Historic Town of Guanajuato and Adjacent Mines” in December 1988.
+
+                  “Today Guanajuato it is considered the most beautiful colonial city of Mexico”.
+
+                  Dinner will be taken right in the garden of the Union, where every night, regional music groups, like Mariachis, bands or trios delight walkers with "Rancheras" traditional era songs, in the dim light of the place which revokes us the past time and creates a magical atmosphere.`,
         },
         {
-          name: "Beginning of the program",
-          places: [
-            { name: "place1", description: "description1" },
-            { name: "place2", description: "description2" },
-          ],
-          topography: [
-            { name: "place1", description: "description1" },
-            { name: "place2", description: "description2" },
-          ],
-          route: "21 km",
+          name: "Guanajuato – Santa Rosa",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Mountainous",
+          route: "Route: 27 Kilometers",
+          description: `After a delicious breakfast, we will be transferred to place where horses are, so we can start our adventure from the old silver mine towards the Village of Santa Rosa, located in the heart of the central highlands. At 2,850 meters height, this will be a beautiful day through the old royal road, used 500 years ago during the Spanish colonial times to transport minerals, mainly gold and silver.
+
+                  Today, during our trip, we will pass by old gold and silver mines, as well as the beautiful rural communities Peñafiel, Monte San Nicolas, Peregrina and Santa Rosa. We will have the chance to see, The Christ of the Cubilete, which is located on cubilete mountain and its considered as the geographic center of Mexico.
+
+                  In the afternoon, we will enjoy a delicious cocktail and tequila tasting at the mountain retreat terrace by the fire place, accompanied by soft Mexican music, in order to complete the day journey.
+                  By the evening we will enjoy a rich typical Mexican cuisine dinner, which for its originality and various flavors, colors, smells and textures, is proudly recognized by UNESCO as intangible and oral heritage of humanity.`,
+        },
+        {
+          name: "Santa Rosa – Dolores Hidalgo",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Mountainous & Flat",
+          route: "Route: 37 Kilometers",
+          description: `After our breakfast in the mountain retreat, we prepare ourselves for this day through the central highlands. It is the most bio-diversified area of the state, full of big mountains, with oak, pine and arbutus forests. We will be followed during the journey by bird sounds, and surrounded by majestic and changing natural environments, with amazing views from the area with the huge mountains one hand, and the semi-desert area on the other, having the opportunity to see some coyote, puma and raccoon footprints on the path, until we get to our next destination:
+                  the old hacienda stables, Our horses will remain there for the night, and we will be transferred to the hotel located in the heart of the historical city of Dolores Hidalgo.`,
+        },
+        {
+          name: "Riding Through Dolores Hidalgo",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Flat",
+          route: "Route: 12 Kilometers",
+          description: `This day we will have the wonderful fortune of going on horseback, one of the most important historical cities of Mexico, known as the "Cradle of Mexican Independence", since his parish’s court witnessed the famous cry for freedom (Grito de Libertad), which was the initial call to take up arms against the colonial regime and the Spanish crown. It was initiated by Priest Miguel Hidalgo y Costilla, at daybreak, on September 16th, 1810. We will make a brief tour on our horses, from the historic center, visiting some of the most emblematic buildings from the war for independence of Mexico.
+
+            By the evening we will have the opportunity to visit the "Wine Museum", enter to a "Real Mexican Cantina" or just walk around and visit stores with a great variety of local handicrafts, and later that day we will enjoy our Dinner in a typical and unique Mexican restaurant, located in the main garden. It is an old house dating back from the eighteenth century and known for serving delicious traditional dishes, lit by fireflies flitting through the gardens and the fresh scent flowers. We will enjoy the culinary arts of the area, mainly based on natural products, which by its simplicity excites the senses`,
+        },
+        {
+          name: "Dolores Hidalgo – Atotonilco",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Flat",
+          route: "Route: 27 Kilometers",
+          description: `In the morning after enjoying a delicious breakfast, accompanied by a typical Mexican coffee named “café de la olla”, we will continue our journey on horseback and our adventure to the town of Atotonilco, passing through the Cactus Valley and the historic hacienda “La Erre”, interesting property which played an important role during the war for independence of Mexico.
+
+            We will enjoy a picnic for lunch, in the picturesque town on the outskirts of the old chapel of Barron community. We will then go up until Atotonilco where we’ll be able to see the imposing walls from the eighteenth century Church, with living shrine, where religious practices are still happening. This invaluable architectural treasure is known as the Sistine Chapel of Mexico, and is composed of a nave, sacristy and over 6 adjoining chapels and several dressing rooms. The place is illustrated with murals and easel paintings, altars and sculptures stews . This majestic shrine is declared by UNESCO as world heritage site.`,
+        },
+        {
+          name: "Atotonilco – San Miguel de Allende",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: "Flat",
+          route: "Route: 23 Kilometers",
+          description: `In the morning, after enjoying a pleasant breakfast served by the pool, we will get ready to go on our adventure, on our way to the closest point to San Miguel de Allende.
+
+      Today, we will be riding along the old roads that were used 200 years ago during the War of Independence and the Mexican Revolution. Going through traditional Mexican landscape, and discovering the Indian Chapels.
+      We will witness the syncretistic religiosity of our indigenous groups who left in these temples, calvaries and chapels along the shore of “Laja River", testimony of their beliefs, lets discover while we ride our horses the land of coyote, opossum, huizache and mesquite, the territory pre-Columbian tribes.
+      Unique landscapes that combine semi-desert, with wetlands, it will turn as an authentic and very interesting journey, definitely a day full of rural life, with a marvelous tranquility, allowing us to enjoy every horse step, to reach our next destination, the cosmopolitan San Miguel de Allende. (World Heritage Site/ UNESCO)
+      Our accommodation, just a few steps away from the main tourist attractions, museums, restaurants and bars.`,
+        },
+        {
+          name: "San Miguel de Allende - End of program",
+          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          topography: false,
+          route: false,
+          description: `It is time to leave our horse behind and discover by foot, San Miguel de Allende, known for its rich traditions, in which all year long events and festivals play an important role, San Miguel is a town full of magic and mysticism which preserves ancient traditions and which can’t be found anywhere else. It is a place full of culture and art, considered as a stage for different traditions and customs that occur in this magical place.
+
+      It is inscribed by UNESCO as a Cultural Heritage of Humanity. Titled “fortified town of San Miguel and the Sanctuary of Jesús Nazareno de Atotonilco”, this distinction by UNESCO was awarded because of its cultural and architectural contribution to Mexican Baroque style and its importance in the struggle for Independence of Mexico towards Spain.
+
+      The riders will have the opportunity to explore by themselves this historic city founded back in 1542, and that has become a cosmopolitan and attractive destination for tourist’s upper class, from Mexico’s and abroad`,
         },
       ];
       let currDay = 1;
-      days.forEach((days) => {
+      days.forEach((day) => {
         let html = `
-        <div id="root" class="dia">
-        DAY ${currDay++} - ${days.name}
-        <div class="button">&plus;</div>
-      </div>
-        `;
-        document.querySelector(".day-container").innerHTML += html;
-      });
-      const button = document.querySelector(".btn-1");
-      button.addEventListener("click", () => {
-        const basicInfo = document.querySelector(".day-1");
-        basicInfo.classList.toggle("hide");
-        basicInfo.classList.toggle("show");
-      });
+                            <div id="root" class="dia dia-${currDay}">
+                              <h2>DAY ${currDay}</h2>
+                              <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
+                            </div>
+                            <div class="basic-info hide hide-animation day-${currDay}">
+                              ${
+                                day.route
+                                  ? `<h4>Route: <em>${day.route}</em></h4>`
+                                  : ""
+                              }
+                              ${
+                                day.topography
+                                  ? `<h4>Topography: <em>${day.topography}</em></h4>`
+                                  : ""
+                              }
 
+                              <p>${day.description}</p>
+                              <img class="image" src="${day.img}" alt="" />
+                              
+                              ${
+                                day.route
+                                  ? `
+                                <h3>Progress Day ${currDay}</h3>
+                                 <div class="progress">
+                              <div class="bar shadow aztec"></div>
+                            </div>`
+                                  : ""
+                              } 
+
+                          `;
+        document.querySelector(".day-container").innerHTML += html;
+
+        currDay++;
+      });
+      const buttons = document.querySelectorAll(`.button`);
+      buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let currDay = e.target.getAttribute("day");
+          const basicInfo = document.querySelector(`.day-${currDay}`);
+
+          basicInfo.classList.toggle("show");
+
+          if (!basicInfo.classList.contains("show")) {
+            basicInfo.classList.toggle("hide-animation");
+            setTimeout(() => {
+              basicInfo.classList.toggle("hide");
+            }, 1000);
+            button.innerHTML = "&plus;";
+          } else {
+            basicInfo.classList.toggle("hide");
+            basicInfo.classList.toggle("hide-animation");
+            button.innerHTML = "&minus;";
+          }
+        });
+      });
+      /*Progress bars*/
+      const bars = document.querySelectorAll(".bar");
+      const progress = document.querySelectorAll(".progress");
+
+      bars.forEach((bar, index) => {
+        const randomWidth = Math.floor(Math.random() * 65 + 10);
+        console.log(curr);
+
+        bar.style.width = `${(curr += (routes[currRoute++] / total) * 100)}%`;
+        console.log(`${curr}% ${currRoute}`);
+
+        const randomTiming = Math.floor(Math.random() * 2 + 2);
+        
+        bar.style.transitionDuration = `${randomTiming}s`;
+        bar.style.width = `${curr}%`;
+      });
       /*GALERIA
-      <div class="gallery">
-          <img
-            src="https://picsum.photos/id/174/400/400"
-            alt="a hot air balloon"
-          />
-          <img
-            src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
-            alt="a sky photo of an old city"
-          />
-          <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
-          <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
-        </div>*/
+                                    <div class="gallery">
+                                        <img
+                                          src="https://picsum.photos/id/174/400/400"
+                                          alt="a hot air balloon"
+                                        />
+                                        <img
+                                          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
+                                          alt="a sky photo of an old city"
+                                        />
+                                        <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
+                                        <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
+                                      </div>*/
     </script>
   </body>
 </html>
