@@ -387,7 +387,7 @@
       days.forEach((day) => {
         let html = `
                             <div id="root" class="dia dia-${currDay}">
-                              <h2>DAY ${currDay}</h2>
+                              <h2>DAY ${currDay}:  ${day.name}</h2>
                               <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
                             </div>
                             <div class="basic-info hide hide-animation day-${currDay}">
@@ -423,20 +423,32 @@
       const buttons = document.querySelectorAll(`.button`);
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
-          let currDay = e.target.getAttribute("day");
-          const basicInfo = document.querySelector(`.day-${currDay}`);
+          let clickedDay = e.target.getAttribute("day");
+          const clickedInfo = document.querySelector(`.day-${clickedDay}`);
 
-          basicInfo.classList.toggle("show");
+          // Hide all other days
+          document.querySelectorAll(".basic-info").forEach((dayInfo) => {
+            if (dayInfo !== clickedInfo) {
+              dayInfo.classList.add("hide");
+              dayInfo.classList.add("hide-animation");
+              dayInfo.classList.remove("show");
+              let btn = document.querySelector(`.btn-${clickedDay}`);
+              btn.innerHTML = "&plus;";
+            } else {
+            }
+          });
 
-          if (!basicInfo.classList.contains("show")) {
-            basicInfo.classList.toggle("hide-animation");
+          clickedInfo.classList.toggle("show");
+
+          if (!clickedInfo.classList.contains("show")) {
+            clickedInfo.classList.toggle("hide-animation");
             setTimeout(() => {
-              basicInfo.classList.toggle("hide");
+              clickedInfo.classList.toggle("hide");
             }, 1000);
             button.innerHTML = "&plus;";
           } else {
-            basicInfo.classList.toggle("hide");
-            basicInfo.classList.toggle("hide-animation");
+            clickedInfo.classList.toggle("hide");
+            clickedInfo.classList.toggle("hide-animation");
             button.innerHTML = "&minus;";
           }
         });
@@ -450,11 +462,8 @@
         console.log(curr);
 
         bar.style.width = `${(curr += (routes[currRoute++] / total) * 100)}%`;
-        console.log(`${curr}% ${currRoute}`);
-
         const randomTiming = Math.floor(Math.random() * 2 + 2);
-        
-        bar.style.transitionDuration = `${randomTiming}s`;
+        bar.style.transitionDuration = `${2}s`;
         bar.style.width = `${curr}%`;
       });
       /*GALERIA
