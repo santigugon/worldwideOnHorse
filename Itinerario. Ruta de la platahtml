@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>title</title>
     <style>
-      body {
+      /* body {
         font-family: "'Exo 2'", sans-serif;
         background-color: #f4f4f4;
         margin: 5vw;
@@ -12,7 +12,7 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
-      }
+      } */
       .dia {
         border-top: black solid 1px;
         display: flex;
@@ -186,43 +186,6 @@
       /*porgress bar*/
       @import url("https://fonts.googleapis.com/css?family=Bitter");
 
-      * {
-        /* border: 1px solid red; */
-      }
-
-      :root {
-        --font: "Bitter", serif;
-        --title-size: 36px;
-        --sub-size: 18px;
-      }
-
-      body {
-        background: #e5e5e5;
-      }
-
-      .title h1 {
-        margin: 4px;
-        font-family: var(--font);
-        font-size: var(--title-size);
-        color: #333;
-      }
-
-      .title p {
-        margin: 4px;
-        padding-bottom: 25px;
-        font-family: var(--font);
-        font-size: var(--sub-size);
-        color: #888;
-      }
-
-      .container {
-        text-align: center;
-      }
-
-      .github {
-        margin: 40px;
-      }
-
       .progress {
         display: inline-block;
         width: 400px;
@@ -263,16 +226,27 @@
           margin: 25px;
         }
 
-        .github {
-          margin: 20px;
-        }
-
         .desktop {
           display: none;
         }
 
         .mobile {
           display: inherit;
+        }
+      }
+      .img-bar-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .img-bar-container h3 {
+        text-align: center;
+        margin-left: 20px;
+      }
+      @media (max-width: 768px) {
+        .img-bar-container {
+          flex-direction: column;
         }
       }
     </style>
@@ -292,7 +266,7 @@
       const days = [
         {
           name: "Beginning of the program",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-1-scaled.jpg",
           topography: false,
           route: false,
           description: `Riders will be greeted at 17:00 hrs. at the meeting point near Guanajuato city, at traditional Mexican ranch.
@@ -304,7 +278,7 @@
         },
         {
           name: "Colomitos – Guanajuato City",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-2-scaled.jpg",
           topography: "Flat & Mountainous",
           route: "21 km",
           description: `After a delicious breakfast at the Ranch, horses are waiting for us, then after an appropriate allocation of horses to riders, we will start our adventure from Colomitos to Peñafiel, a ride along through rural communities in the area, until reaching the foothills of the Montecillo mountains, where we start to ascend from 1,900 m.a.s.l. towards the old Cardones hacienda at 2,236 m.a.s.l., crossing landscapes of changing nature with elements of the semi-desert and the majesty of the central mountain range.
@@ -323,7 +297,7 @@
         },
         {
           name: "Guanajuato – Santa Rosa",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-3.jpg",
           topography: "Mountainous",
           route: "Route: 27 Kilometers",
           description: `After a delicious breakfast, we will be transferred to place where horses are, so we can start our adventure from the old silver mine towards the Village of Santa Rosa, located in the heart of the central highlands. At 2,850 meters height, this will be a beautiful day through the old royal road, used 500 years ago during the Spanish colonial times to transport minerals, mainly gold and silver.
@@ -335,7 +309,7 @@
         },
         {
           name: "Santa Rosa – Dolores Hidalgo",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-4.jpg",
           topography: "Mountainous & Flat",
           route: "Route: 37 Kilometers",
           description: `After our breakfast in the mountain retreat, we prepare ourselves for this day through the central highlands. It is the most bio-diversified area of the state, full of big mountains, with oak, pine and arbutus forests. We will be followed during the journey by bird sounds, and surrounded by majestic and changing natural environments, with amazing views from the area with the huge mountains one hand, and the semi-desert area on the other, having the opportunity to see some coyote, puma and raccoon footprints on the path, until we get to our next destination:
@@ -343,7 +317,7 @@
         },
         {
           name: "Riding Through Dolores Hidalgo",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia5.jpg",
           topography: "Flat",
           route: "Route: 12 Kilometers",
           description: `This day we will have the wonderful fortune of going on horseback, one of the most important historical cities of Mexico, known as the "Cradle of Mexican Independence", since his parish’s court witnessed the famous cry for freedom (Grito de Libertad), which was the initial call to take up arms against the colonial regime and the Spanish crown. It was initiated by Priest Miguel Hidalgo y Costilla, at daybreak, on September 16th, 1810. We will make a brief tour on our horses, from the historic center, visiting some of the most emblematic buildings from the war for independence of Mexico.
@@ -352,7 +326,7 @@
         },
         {
           name: "Dolores Hidalgo – Atotonilco",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-6.jpeg",
           topography: "Flat",
           route: "Route: 27 Kilometers",
           description: `In the morning after enjoying a delicious breakfast, accompanied by a typical Mexican coffee named “café de la olla”, we will continue our journey on horseback and our adventure to the town of Atotonilco, passing through the Cactus Valley and the historic hacienda “La Erre”, interesting property which played an important role during the war for independence of Mexico.
@@ -361,7 +335,7 @@
         },
         {
           name: "Atotonilco – San Miguel de Allende",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-7.jpg",
           topography: "Flat",
           route: "Route: 23 Kilometers",
           description: `In the morning, after enjoying a pleasant breakfast served by the pool, we will get ready to go on our adventure, on our way to the closest point to San Miguel de Allende.
@@ -373,7 +347,7 @@
         },
         {
           name: "San Miguel de Allende - End of program",
-          img: "https://worldwideonhorse.com/wp-content/uploads/2023/12/DSC4671-scaled.jpg",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-8.jpg",
           topography: false,
           route: false,
           description: `It is time to leave our horse behind and discover by foot, San Miguel de Allende, known for its rich traditions, in which all year long events and festivals play an important role, San Miguel is a town full of magic and mysticism which preserves ancient traditions and which can’t be found anywhere else. It is a place full of culture and art, considered as a stage for different traditions and customs that occur in this magical place.
@@ -403,17 +377,21 @@
                               }
 
                               <p>${day.description}</p>
-                              <img class="image" src="${day.img}" alt="" />
-                              
-                              ${
-                                day.route
-                                  ? `
-                                <h3>Progress Day ${currDay}</h3>
-                                 <div class="progress">
-                              <div class="bar shadow aztec"></div>
-                            </div>`
-                                  : ""
-                              } 
+                              <div class="img-bar-container">
+                                <img class="image" src="${day.img}" alt="" />
+                                
+                                ${
+                                  day.route
+                                    ? `
+                                    <div>
+                                      <h3>Progress Day ${currDay}</h3>
+                                      <div class="progress">
+                                        <div class="bar shadow aztec"></div>
+                                        </div>`
+                                    : ""
+                                } 
+                                      </div>
+                                  </div>
 
                           `;
         document.querySelector(".day-container").innerHTML += html;

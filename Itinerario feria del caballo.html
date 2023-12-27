@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+      /* body {
+        font-family: "'Exo 2'", sans-serif;
+        background-color: #f4f4f4;
+        margin: 5vw;
+        padding: 2vh;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      } */
+      .dia {
+        border-top: black solid 1px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2vh;
+        padding: 1vh 0;
+        animation: linear reveal both;
+        animation-range: entry 5% cover 30%;
+        animation-timeline: view();
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          translate: 0 100px;
+        }
+        50% {
+          opacity: 0.1;
+        }
+        to {
+          opacity: 1;
+          translate: 0 0;
+        }
+      }
+      .button {
+        font-size: 30px;
+      }
+      .button:hover {
+        cursor: pointer;
+        content: "&minus;";
+      }
+      .image {
+        transition: 0.5s;
+        max-width: 30% !important;
+        min-width: 200px !important;
+        filter: drop-shadow(30px 10px 4px #000000);
+        margin-bottom: 50px;
+      }
+      .image:hover {
+        transition: 0.5s;
+        filter: drop-shadow(15px 40px 4px #000000);
+      }
+
+      .gallery {
+        --g: 8px; /* the gap */
+        --s: 400px; /* the size */
+
+        display: grid;
+        border-radius: 50%;
+      }
+      .gallery > img {
+        grid-area: 1/1;
+        width: 400px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 50%;
+        transform: translate(var(--_x, 0), var(--_y, 0));
+        cursor: pointer;
+        z-index: 0;
+        transition: 0.3s, z-index 0s 0.3s;
+      }
+      .gallery img:hover {
+        --_i: 1;
+        z-index: 1;
+        transition: transform 0.2s, clip-path 0.3s 0.2s, z-index 0s;
+      }
+      .gallery:hover img {
+        transform: translate(0, 0);
+      }
+      .gallery > img:nth-child(1) {
+        clip-path: polygon(
+          50% 50%,
+          calc(50% * var(--_i, 0)) calc(120% * var(--_i, 0)),
+          0 calc(100% * var(--_i, 0)),
+          0 0,
+          100% 0,
+          100% calc(100% * var(--_i, 0)),
+          calc(100% - 50% * var(--_i, 0)) calc(120% * var(--_i, 0))
+        );
+        --_y: calc(-1 * var(--g));
+      }
+      .gallery > img:nth-child(2) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% - 100% * var(--_i, 0)) 0,
+          100% 0,
+          100% 100%,
+          calc(100% - 100% * var(--_i, 0)) 100%,
+          calc(100% - 120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: var(--g);
+      }
+      .gallery > img:nth-child(3) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0)),
+          100% calc(100% - 120% * var(--_i, 0)),
+          100% 100%,
+          0 100%,
+          0 calc(100% - 100% * var(--_i, 0)),
+          calc(50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0))
+        );
+        --_y: var(--g);
+      }
+      .gallery > img:nth-child(4) {
+        clip-path: polygon(
+          50% 50%,
+          calc(120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% * var(--_i, 0)) 0,
+          0 0,
+          0 100%,
+          calc(100% * var(--_i, 0)) 100%,
+          calc(120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: calc(-1 * var(--g));
+      }
+
+      .basic-info {
+        animation: fadein 2s;
+
+        transition: 0.5s;
+        margin-top: 2vh;
+        padding: 1vh 2vw;
+
+        border-style: outset;
+      }
+      .basic-info:hover {
+        transition: 0.5s;
+        border-style: inset;
+      }
+
+      .show {
+        animation: fade-in 1.5s;
+      }
+      .hide-animation {
+        animation: fade-out 1s;
+      }
+
+      .hide {
+        display: none;
+      }
+      .fade-in {
+        animation-name: fade-in;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fade-out {
+        animation-name: fade-out;
+      }
+
+      @keyframes fade-out {
+        from {
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      /*porgress bar*/
+      @import url("https://fonts.googleapis.com/css?family=Bitter");
+
+      .progress {
+        display: inline-block;
+        width: 400px;
+        height: 50px;
+        margin: 35px;
+        border-radius: 20px;
+        background: #f9f9f9;
+      }
+
+      .bar {
+        border-radius: 20px;
+        width: 0%;
+        height: 100%;
+        transition: width;
+        transition-duration: 1s;
+        transition-timing-function: cubic-bezier(0.36, 0.55, 0.63, 0.48);
+      }
+
+      .mobile {
+        display: none;
+      }
+
+      .shadow {
+        /* 25 50 */
+        box-shadow: 0px 45px 50px rgba(0, 0, 0, 0.25);
+      }
+
+      .aztec {
+        background-color: #97c680;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%230d37c2' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      @media screen and (max-width: 500px) {
+        .progress {
+          width: calc(100vw * 0.7);
+          /* height: calc(100vw * 0.7 * 0.145); */
+          height: 40px;
+          margin: 25px;
+        }
+
+        .desktop {
+          display: none;
+        }
+
+        .mobile {
+          display: inherit;
+        }
+      }
+      .img-bar-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .img-bar-container h3 {
+        text-align: center;
+        margin-left: 20px;
+      }
+      @media (max-width: 768px) {
+        .img-bar-container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="day-container"></div>
+
+    <script>
+      const routes = [21, 27, 37, 12, 27, 23];
+      let total = 0;
+      routes.forEach((route) => {
+        total += route;
+      });
+      let curr = 0;
+
+      let currRoute = 0;
+      const days = [
+        {
+          name: "Beginning of the program",
+          img: "",
+          topography: false,
+          route: false,
+          description: `
+12:30 horas   Meet & Greet  / Welcome Cocktail in the town of Cogollos de Guadix
+Located just 75 km / less than 1 hour drive, from the city of Granada.
+Reception by the Tour Guide
+2:00 PM Welcome Lunch
+*Details of the meeting point will be provided upon receiving your reservation
+
+<h6>
+                    Cogollos de Guadix is located on the northern edge of the Sierra Nevada Natural Park, forming part of the mountainous area that the Arabs called Sened. Its magnificent natural surroundings make it the perfect place for horseback excursions in one of the most extraordinary natural spaces in all of Granada:
+                    - Reception and presentation of the horseback excursion.
+                    - Gastronomic tasting dinner and accommodation at Hotel Reina Aixa.
+                    </h6>
+`,
+        },
+        {
+          name: "Lugros - Shepherd's Path",
+          img: "",
+          topography: "Mountainous",
+          route: false,
+          description: `Car transfer to the estate to meet our horses. /Approx. 20 minutes
+On our first day of the journey, to adapt to our horses, we will traverse an easy trail with marvelous views of the plateau (1200 meters above sea level). We will use the "Shepherd's Path," which winds through dense pine forests. The thickness of these woods, the silence of the trail, and the tranquility of the surroundings allow us to carefully observe every corner and discover the almost magical nature of this forest, known as the enchanted forest. (We can almost sense some "gnome" or fairy from this magical place.)
+We arrive at "La Pantaneta," a small lake surrounded by mountains formed by the melting waters of the Sierra Nevada. The more adventurous ones, daring to face the cold water, can take a refreshing swim if they wish.
+Picnic lunch by the Pantaneta de Cogollos.
+
+<h6> Total duration of the horseback journey / Approx. 4 hours. </h6>
+                  `,
+        },
+        {
+          name: "Lugros - Camarate - Jerez del Marquesado",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-3.jpg",
+          topography: "Mountainous",
+          route: false,
+          description: `After enjoying our breakfast, we set out to explore with our horses. The gentle slopes of these mountains, with easy paths traditionally used for livestock, have allowed the locals to guide their "cows and brave bulls" to the green high-mountain meadows known as "el camarate." This place is special as it combines meadows with Atlantic-origin trees, earning it the name "the enchanted forest." After the picnic, we will descend to the small village of Jerez del Marquesado.`,
+        },
+        {
+          name: "Jerez del Marquesado - Plane Trail ",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-4.jpg",
+          topography: "Mountainous & Flat",
+          route: false,
+          description: `We ride our horses through the white streets of Jerez del Marquesado, located in the Marquesado del Cenete (a Spanish noble title granted by Queen Isabel la Católica in 1491 to Rodrigo Díaz de Vivar and Mendoza). It is also one of the highest plateaus in the Iberian Peninsula and the geographical indication used to designate wines originating from the northern zone of the province of Granada. Later, we continue our journey and head to "Picón," one of the highest mountains in Sierra Nevada (3090m), although we will stay at 2000 meters. At this altitude, we encounter small streams and waterfalls where water descends from the mountains with perpetual snow, following the same path that a group of young people from Jerez took in 1960 to rescue American soldiers whose plane crashed on the peaks of "Picón."Almuerzo Picnic cocina junto al arroyo de ¨La tizná¨`,
+        },
+        {
+          name: "Jerez del Marquesado - Alquife Mines - La Calahorra",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia5.jpg",
+          topography: "Flat",
+          route: false,
+          description: `Today we head east, crossing the immense plain known as the Altiplano de Sierra Nevada. This will allow us to have perhaps the best, longest, and most relaxed gallops of the entire week, as its wide clay paths make it very comfortable for our horses.
+In the midst of the plateau, we will discover a red mountain that surrounds the iron mines of Alquife, also known as the Marquesado mines or the mining reserve of the Alquife mines. These mines primarily exploit iron ore and constitute the largest open-pit iron mine in Europe, operational since the Bronze Age (3300 BC to 1200 BC).
+After the picnic, we head to La Calahorra, which awaits us with the last medieval castle built in Spain before the Renaissance. The Castle of La Calahorra is a true gem of Andalusian historical and artistic heritage, declared a Cultural Heritage Site (BIC) since July 6, 1922.
+`,
+        },
+        {
+          name: "La Calahorra - Valle del Zalabí - Lugros",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-6.jpeg",
+          topography: "Flat",
+          route: false,
+          description: `We descend on our horses, with the Castle of La Calahorra standing witness to our departure, situated on a hill from which the entire Marquesado de Cenete can be seen. Built between 1509 and 1512 on the ruins of an Arab fortress as evidence of the conquest of the Nasrid Empire.
+
+Continuing our horseback journey for the day, we descend from the plateau (1200 meters) to the Valle del Zalabí through a green landscape surrounded by cultivated fields. In times past (during the Andalusian period), these fields were used to cultivate mulberry trees and feed the silkworms used to produce silk for the dresses of Muslim sultans who inhabited Andalusia.
+`,
+        },
+        {
+          name: "Lugros (End of the Journey)",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-7.jpg",
+          topography: "Flat",
+          route: false,
+          description: `After breakfast, transfer of riders to the point where our horses are located.
+On the last day of our journey, we will undoubtedly visit one of the most spectacular spaces in Sierra Nevada, "El Fin del Mundo" (The End of the World). This valley of red clay, formed in the Quaternary by the melting waters of Sierra Nevada, has in its walls the largest inhabited cave complex in the world. (Currently, more than 4000 people live in caves).
+In the afternoon, after the horseback journey of the day, we return to Lugros to the estate where we will bid farewell to our horses. We then travel by car to Guadix, a Monumental City, where we will visit the cave neighborhood. In the evening, we will have dinner at a restaurant in the center of Guadix.
+`,
+        },
+        {
+          name: "Transfer from Lugros to Puerto de Santa María.",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-8.jpg",
+          topography: false,
+          route: false,
+          description: `After breakfast, transfer of riders to Puerto de Santa María / approx. 4 hours. The rest of the day is free to rest and/or explore the beautiful Puerto de Santa María on foot. The port serves as the recreational center of the bay. Throughout the year, the atmosphere is lively, with its beaches, wine cellars, and a wide range of entertainment and dining options, making it a premier tourist destination.
+          One of its most emblematic buildings is the Castle of San Marcos (10th-14th centuries), originally an Arab mosque and now a beautiful fortress. It is joined by the Monastery of La Victoria and the Main Prioral Church, both in Gothic style. Notable civil architecture includes the Lonja, the Hospital of San Juan de Dios, and the Fountain of the Galleys. Throughout the Middle Ages, the city experienced a progressive maritime boom, leading to the notable participation of its sailors in the discovery and conquest of America. In this city, the sailor Juan de la Cosa drew the first world map in 1500 that included American lands.
+          `,
+        },
+        {
+          name: "Bodegas González Byass & Feria del Caballo.",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-8.jpg",
+          topography: false,
+          route: false,
+          description: `After breakfast, private transfer for a guided tour of Bodegas González Byass, better known as "Bodegas Tío Pepe." It is a monumental set of wineries located in the historic center of Jerez, representing the winemaking tradition of the 19th century with Andalusian courtyards, vine-covered streets, and spectacular centuries-old cellars where the finest Sherries and Brandies age. We will explore its vineyards and gardens, the centuries-old cellars with over 180 years of history, and discover the wonderful flavors and aromas of the best Sherries in a tasting session.
+After our visit to the wineries, we continue to Parque González Hontoria, the venue for "La Feria del Caballo" (The Horse Fair), one of the oldest in Spain and undoubtedly one of the most important in the world. Declared of International Tourist Interest, it offers visitors the opportunity to enjoy local wines, the magic of flamenco, and the spectacular horse and carriage parade.
+`,
+        },
+        {
+          name: "Horse Fair & Royal Andalusian School of Equestrian Art.",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-8.jpg",
+          topography: false,
+          route: false,
+          description: `After breakfast, private transfer to the fairground for another visit to the Horse Fair, with the opportunity for those interested to enjoy parallel equestrian activities at IFECA, such as exhibitions, cattle herding tests, Western riding, carriage displays, morphological contests, etc.
+Later, within the Royal Fairgrounds, we can experience the Horse Parade, where the horse is undoubtedly the absolute protagonist. The Royal Fair is adorned with the procession of riders, amazons, and carriages, one of the most attractive and genuine spectacles of the Jerez celebration.In the evening, we will attend the exhibition of the Royal Andalusian School of Equestrian Art, "Como bailan los caballos andaluces" (How Andalusian horses dance). It is undoubtedly the most elegant exhibition of the Royal Andalusian School of Equestrian Art, an authentic equestrian ballet with purely Spanish music and costumes from the 18th century. The performance is based on choreographies extracted from classical and Western riding rehearsals and other works of traditional horsemanship.
+`,
+        },
+        {
+          name: "End of services.",
+          img: "http://worldwideonhorse.com/wp-content/uploads/2023/12/ruta-de-la-plata-dia-8.jpg",
+          topography: false,
+          route: false,
+          description: `After breakfast, farewell to the riders, and end of our services`,
+        },
+      ];
+      let currDay = 1;
+      days.forEach((day) => {
+        let html = `
+                            <div id="root" class="dia dia-${currDay}">
+                              <h2>DAY ${currDay}:  ${day.name}</h2>
+                              <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
+                            </div>
+                            <div class="basic-info hide hide-animation day-${currDay}">
+                              ${
+                                day.route
+                                  ? `<h4>Route: <em>${day.route}</em></h4>`
+                                  : ""
+                              }
+                              ${
+                                day.topography
+                                  ? `<h4>Topography: <em>${day.topography}</em></h4>`
+                                  : ""
+                              }
+
+                              <p>${day.description}</p>
+                              <div class="img-bar-container">
+                                <img class="image" src="${day.img}" alt="" />
+                                
+                                ${
+                                  day.route
+                                    ? `
+                                    <div>
+                                      <h3>Progress Day ${currDay}</h3>
+                                      <div class="progress">
+                                        <div class="bar shadow aztec"></div>
+                                        </div>`
+                                    : ""
+                                } 
+                                      </div>
+                                  </div>
+
+                          `;
+        document.querySelector(".day-container").innerHTML += html;
+
+        currDay++;
+      });
+      const buttons = document.querySelectorAll(`.button`);
+      buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let clickedDay = e.target.getAttribute("day");
+          const clickedInfo = document.querySelector(`.day-${clickedDay}`);
+
+          // Hide all other days
+          document.querySelectorAll(".basic-info").forEach((dayInfo) => {
+            if (dayInfo !== clickedInfo) {
+              dayInfo.classList.add("hide");
+              dayInfo.classList.add("hide-animation");
+              dayInfo.classList.remove("show");
+              let btn = document.querySelector(`.btn-${clickedDay}`);
+              btn.innerHTML = "&plus;";
+            } else {
+            }
+          });
+
+          clickedInfo.classList.toggle("show");
+
+          if (!clickedInfo.classList.contains("show")) {
+            clickedInfo.classList.toggle("hide-animation");
+            setTimeout(() => {
+              clickedInfo.classList.toggle("hide");
+            }, 1000);
+            button.innerHTML = "&plus;";
+          } else {
+            clickedInfo.classList.toggle("hide");
+            clickedInfo.classList.toggle("hide-animation");
+            button.innerHTML = "&minus;";
+          }
+        });
+      });
+      /*Progress bars*/
+      const bars = document.querySelectorAll(".bar");
+      const progress = document.querySelectorAll(".progress");
+
+      bars.forEach((bar, index) => {
+        const randomWidth = Math.floor(Math.random() * 65 + 10);
+        console.log(curr);
+
+        bar.style.width = `${(curr += (routes[currRoute++] / total) * 100)}%`;
+        const randomTiming = Math.floor(Math.random() * 2 + 2);
+        bar.style.transitionDuration = `${2}s`;
+        bar.style.width = `${curr}%`;
+      });
+      /*GALERIA
+                                    <div class="gallery">
+                                        <img
+                                          src="https://picsum.photos/id/174/400/400"
+                                          alt="a hot air balloon"
+                                        />
+                                        <img
+                                          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
+                                          alt="a sky photo of an old city"
+                                        />
+                                        <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
+                                        <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
+                                      </div>*/
+    </script>
+  </body>
+</html>
