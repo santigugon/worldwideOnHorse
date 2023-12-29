@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+      /* body {
+        font-family: "'Exo 2'", sans-serif;
+        background-color: #f4f4f4;
+        margin: 5vw;
+        padding: 2vh;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      } */
+      .dia {
+        border-top: black solid 1px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2vh;
+        padding: 1vh 0;
+        animation: linear reveal both;
+        animation-range: entry 5% cover 30%;
+        animation-timeline: view();
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          translate: 0 100px;
+        }
+        50% {
+          opacity: 0.1;
+        }
+        to {
+          opacity: 1;
+          translate: 0 0;
+        }
+      }
+      .button {
+        font-size: 30px;
+      }
+      .button:hover {
+        cursor: pointer;
+        content: "&minus;";
+      }
+      .image {
+        transition: 0.5s;
+        max-width: 30% !important;
+        min-width: 200px !important;
+        filter: drop-shadow(30px 10px 4px #000000);
+        margin-bottom: 50px;
+      }
+      .image:hover {
+        transition: 0.5s;
+        filter: drop-shadow(15px 40px 4px #000000);
+      }
+
+      .gallery {
+        --g: 8px; /* the gap */
+        --s: 400px; /* the size */
+
+        display: grid;
+        border-radius: 50%;
+      }
+      .gallery > img {
+        grid-area: 1/1;
+        width: 400px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 50%;
+        transform: translate(var(--_x, 0), var(--_y, 0));
+        cursor: pointer;
+        z-index: 0;
+        transition: 0.3s, z-index 0s 0.3s;
+      }
+      .gallery img:hover {
+        --_i: 1;
+        z-index: 1;
+        transition: transform 0.2s, clip-path 0.3s 0.2s, z-index 0s;
+      }
+      .gallery:hover img {
+        transform: translate(0, 0);
+      }
+      .gallery > img:nth-child(1) {
+        clip-path: polygon(
+          50% 50%,
+          calc(50% * var(--_i, 0)) calc(120% * var(--_i, 0)),
+          0 calc(100% * var(--_i, 0)),
+          0 0,
+          100% 0,
+          100% calc(100% * var(--_i, 0)),
+          calc(100% - 50% * var(--_i, 0)) calc(120% * var(--_i, 0))
+        );
+        --_y: calc(-1 * var(--g));
+      }
+      .gallery > img:nth-child(2) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% - 100% * var(--_i, 0)) 0,
+          100% 0,
+          100% 100%,
+          calc(100% - 100% * var(--_i, 0)) 100%,
+          calc(100% - 120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: var(--g);
+      }
+      .gallery > img:nth-child(3) {
+        clip-path: polygon(
+          50% 50%,
+          calc(100% - 50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0)),
+          100% calc(100% - 120% * var(--_i, 0)),
+          100% 100%,
+          0 100%,
+          0 calc(100% - 100% * var(--_i, 0)),
+          calc(50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0))
+        );
+        --_y: var(--g);
+      }
+      .gallery > img:nth-child(4) {
+        clip-path: polygon(
+          50% 50%,
+          calc(120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+          calc(100% * var(--_i, 0)) 0,
+          0 0,
+          0 100%,
+          calc(100% * var(--_i, 0)) 100%,
+          calc(120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+        );
+        --_x: calc(-1 * var(--g));
+      }
+
+      .basic-info {
+        animation: fadein 2s;
+
+        transition: 0.5s;
+        margin-top: 2vh;
+        padding: 1vh 2vw;
+
+        border-style: outset;
+      }
+      .basic-info:hover {
+        transition: 0.5s;
+        border-style: inset;
+      }
+
+      .show {
+        animation: fade-in 1.5s;
+      }
+      .hide-animation {
+        animation: fade-out 1s;
+      }
+
+      .hide {
+        display: none;
+      }
+      .fade-in {
+        animation-name: fade-in;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fade-out {
+        animation-name: fade-out;
+      }
+
+      @keyframes fade-out {
+        from {
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      /*porgress bar*/
+      @import url("https://fonts.googleapis.com/css?family=Bitter");
+
+      .progress {
+        display: inline-block;
+        width: 400px;
+        height: 50px;
+        margin: 35px;
+        border-radius: 20px;
+        background: #f9f9f9;
+      }
+
+      .bar {
+        border-radius: 20px;
+        width: 0%;
+        height: 100%;
+        transition: width;
+        transition-duration: 1s;
+        transition-timing-function: cubic-bezier(0.36, 0.55, 0.63, 0.48);
+      }
+
+      .mobile {
+        display: none;
+      }
+
+      .shadow {
+        /* 25 50 */
+        box-shadow: 0px 45px 50px rgba(0, 0, 0, 0.25);
+      }
+
+      .aztec {
+        background-color: #97c680;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%230d37c2' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      @media screen and (max-width: 500px) {
+        .progress {
+          width: calc(100vw * 0.7);
+          /* height: calc(100vw * 0.7 * 0.145); */
+          height: 40px;
+          margin: 25px;
+        }
+
+        .desktop {
+          display: none;
+        }
+
+        .mobile {
+          display: inherit;
+        }
+      }
+      .img-bar-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .img-bar-container h3 {
+        text-align: center;
+        margin-left: 20px;
+      }
+      @media (max-width: 768px) {
+        .img-bar-container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="day-container"></div>
+
+    <script>
+      const routes = [7, 12, 25, 20, 20, 15, 20];
+      let total = 0;
+      routes.forEach((route) => {
+        total += route;
+      });
+      let curr = 0;
+
+      let currRoute = 0;
+      const days = [
+        {
+          name: "Arrival in Maceió (capital city of the State Alagoas)",
+          img: "",
+          topography: false,
+          route: false,
+          description: `There is no required arrival hour. You can arrive in Maceio when it suits you best. Late afternoon Meet & Greet at the hotel in Maceió to brief the riding group about the coming days. Overnight at a comfortable hotel in Maceió.
+
+`,
+        },
+        {
+          name: "Maceió – Beach of Jequiá",
+          img: "",
+          topography:
+            "Beaches, Cliffs, Boat ride, Swimming in the river and sea, Lunch at Jequiá (Dunes of Marapé)",
+          route: 7,
+          description: `After a delicious breakfast, we leave early to meet the horses at the paradisiacal beach of Jequiá. We will choose horses, make adjustments to the stirrups and take of for the ride. We immediately start on one of the deserted beaches, dotted with cliffs of multicolored sands and coconut trees. Our destination today is breathtaking! The Marapé Dunes are lying between the river and the sea. In the middle of preserved mangroves we will leave the horses to delight us with a boat trip along the mangroves, we take a refreshing bath river and the sea. The Sunset here is stunning. Overnight at Pousada - Dunes de Marapé.
+(Breakfast ,lunch, snack and dinner)`,
+        },
+        {
+          name: "Jequiá Beach – Pontal do Coruripe",
+          img: "",
+          topography:
+            " Beaches, Cliffs, Reefs, Coconut trees, Swimming in the sea, Lunch at Pontal do Coruripe",
+          route: 12,
+          description: `We will wake up with great disposition and an incredible view to the natural beauty of this place. Our horses are saddled and ready to take us for another day full of beautiful scenery and pristine nature. We will ride along deserted beaches, lined with coconut trees and appreciate the lush vegetation of the Atlantic forest. Barrier reefs are visible from the saddle. Our destination is the Pontal do Coruripe beach with its omnipresent lighthouse. The warm sea water is just perfect for a swim. Late lunch and overnight stay at Pousada - Pontal do Coruripe. ( Breakfast, Lunch, Snack and dinner).`,
+        },
+        {
+          name: "Pontal do Coruripe - Feliz Deserto - Pontal do Peba (Fishing Village)",
+          img: "",
+          topography:
+            "Beaches, Coruripe River Mouth, River crossing, Shipwreck",
+          route: 25,
+          description: `We will depart on the beach towards the south in direction to Feliz Deserto. Feliz Deserto means Happy Desert so we decided to have 2 happy nights at Feliz Deserto. Shortly after taking the trail to the sea, we will find the mouth of the river Coruripe that gives name to the location. Ready for some adventure? We will cross the river with the horses. Soon after the river crossing we will stop to refresh ourselves in the sea and meet our back up team waiting for us with coconut water and tropical fruits. We continue along deserted beaches, here and there we will ride along a beach village and see artisanal fishermen. Just before we reach our overnight spot, we find at the beach the Swiss Cargo schipwreck "The Stockholm". Our exclusive Beach front Posada awaits us for a good caipirinha. Overnight a the Posada. (Breakfast, Lunch, snack and dinner).`,
+        },
+        {
+          name: "Pontal do Peba – Dune Complex – Coconut Plantations - Beach - Pontal do Peba",
+          img: "",
+          topography: "Unique ecosystem, dune complex, Galloping on the beach",
+          route: 20,
+          description: `Right after a good breakfast, we mount the horses and ride inland,away from the beach, towards the dune complex, a protected area with a unique ecosystem with  fantastic views from the top of the dunes. We continue the ride trough coconut plantations and a tiny village till we reach the beach again. We end the todays ride with a gallop on the beach.  Overnight stay at the Beach front Posada (Breakfast, Lunch and snack and dinner).`,
+        },
+        {
+          name: "Pontal do Peba  – Sugar cane Plantations – Beach house – Pontal do Peba ",
+          img: "",
+          topography: "Beaches, Coconut trees, Fisherman´s village",
+          route: 20,
+          description: `Today we will have time to enjoy the best of the region, deserted beaches, sugar cane plantations, coconut trees and a small fishing village. Also, we will have time to bathe in the sea and enjoy the local cuisine with excellent fresh seafood arriving all the time in small boats that dot the coast. Our foot in the sand hostel has a privileged location. Overnight a the beachfront Pousada. (Breakfast, Lunch, Snack and dinner).`,
+        },
+        {
+          name: "Pontal do Peba – Bonito – Potengi",
+          img: "",
+          topography:
+            "Beaches, Coconut trees, Dunes, Small villages, Traditional coconut farm",
+          route: 15,
+          description: `The Fisherman's Village of Pontal do Peba with its bars and restaurants specialized in seafood is the starting point of todays ride. From the saddle we explore an area of dunes and environmental preservation. Between coconut groves and dunes some tropical birds, reptiles and mammals can be spotted.  We will end the ride today at a traditional coconut farms of the region. Overnight at the Pousada.(Breakfast, Lunch and snack and Dinner)`,
+        },
+        {
+          name: "Beach– Dunes – Mouth of the São Francisco River – Penedo",
+          img: "",
+          topography:
+            "Beach, Dunes, Quilombo community, Mouth of the São Francisco River, Boat tour on the São Francisco river, Lunch on the banks of the river",
+          route: 20,
+          description: `After a good breakfast we mount our horses to start our last riding day. We ride through a coconut forrest until we find the huge dune complex we cross the dunes and before reaching the mouth of the São Francisco River, we will ride along the quilombola community of Pixaim. (a quilombo is a town of escaped slaves) In Foz, we will enjoy a refreshing river swim with the horses and take all the time for it. We will drink from a fresh coconut and eat some snacks. We will leave the horses behind, and hop on a boat to sail the mighty river until arriving at the banks of the river where we will have lunch. Typical sea food of the region will be served in the shade. We will arrive at the end of the afternoon at the colonial town of Penedo. Overnight at the Hotel. (Breakfast, Lunch and snack)`,
+        },
+        {
+          name: "Penedo – Maceió",
+          img: "",
+          topography:
+            "Visit of Penedo’s historical centre, Farewell lunch in Penedo",
+          route: false,
+          description: `No hurry to get out of bed today. After a nice breakfast we will walk around town and see the beautiful baroque-style churches, old houses, theater, and convent and all other Penedo’s architectural jewels. We will have lunch at a traditional restaurant overlooking the river. After lunch we depart to Maceió. End of the itinerary. (Breakfast and lunch).
+
+​
+<br><br>
+Do not book a return flight leaving Maceio before 8:00 PM (20:00hrs)
+Staying an extra night In Maceio is sometimes the best / cheapest option (wide range of hotel choice) so you can leave whenever it suits you on day 10.`,
+        },
+      ];
+      let currDay = 1;
+      days.forEach((day) => {
+        let html = `
+                            <div id="root" class="dia dia-${currDay}">
+                              <h2>DAY ${currDay}:  ${day.name}</h2>
+                              <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
+                            </div>
+                            <div class="basic-info hide hide-animation day-${currDay}">
+                              ${
+                                day.route
+                                  ? `<h4>Route: <em>${day.route}km</em></h4>`
+                                  : ""
+                              }
+                              ${
+                                day.topography
+                                  ? `<h4>Characteristics: <em>${day.topography}</em></h4>`
+                                  : ""
+                              }
+
+                              <p>${day.description}</p>
+                              <div class="img-bar-container">
+                                <img class="image" src="${day.img}" alt="" />
+                                
+                                ${
+                                  day.route
+                                    ? `
+                                    <div>
+                                      <h3>Progress Day ${currDay}</h3>
+                                      <div class="progress">
+                                        <div class="bar shadow aztec"></div>
+                                        </div>`
+                                    : ""
+                                } 
+                                      </div>
+                                  </div>
+
+                          `;
+        document.querySelector(".day-container").innerHTML += html;
+
+        currDay++;
+      });
+      const buttons = document.querySelectorAll(`.button`);
+      buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let clickedDay = e.target.getAttribute("day");
+          const clickedInfo = document.querySelector(`.day-${clickedDay}`);
+
+          // Hide all other days
+          document.querySelectorAll(".basic-info").forEach((dayInfo) => {
+            if (dayInfo !== clickedInfo) {
+              dayInfo.classList.add("hide");
+              dayInfo.classList.add("hide-animation");
+              dayInfo.classList.remove("show");
+              let btn = document.querySelector(`.btn-${clickedDay}`);
+              btn.innerHTML = "&plus;";
+            } else {
+            }
+          });
+
+          clickedInfo.classList.toggle("show");
+
+          if (!clickedInfo.classList.contains("show")) {
+            clickedInfo.classList.toggle("hide-animation");
+            setTimeout(() => {
+              clickedInfo.classList.toggle("hide");
+            }, 1000);
+            button.innerHTML = "&plus;";
+          } else {
+            clickedInfo.classList.toggle("hide");
+            clickedInfo.classList.toggle("hide-animation");
+            button.innerHTML = "&minus;";
+          }
+        });
+      });
+      /*Progress bars*/
+      const bars = document.querySelectorAll(".bar");
+      const progress = document.querySelectorAll(".progress");
+
+      bars.forEach((bar, index) => {
+        const randomWidth = Math.floor(Math.random() * 65 + 10);
+        console.log(curr);
+
+        bar.style.width = `${(curr += (routes[currRoute++] / total) * 100)}%`;
+        const randomTiming = Math.floor(Math.random() * 2 + 2);
+        bar.style.transitionDuration = `${2}s`;
+        bar.style.width = `${curr}%`;
+      });
+      /*GALERIA
+                                    <div class="gallery">
+                                        <img
+                                          src="https://picsum.photos/id/174/400/400"
+                                          alt="a hot air balloon"
+                                        />
+                                        <img
+                                          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
+                                          alt="a sky photo of an old city"
+                                        />
+                                        <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
+                                        <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
+                                      </div>*/
+    </script>
+  </body>
+</html>
