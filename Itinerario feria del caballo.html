@@ -249,6 +249,9 @@
           flex-direction: column;
         }
       }
+      .day-description {
+        white-space: pre-line;
+      }
     </style>
   </head>
   <body>
@@ -394,7 +397,7 @@ Later, within the Royal Fairgrounds, we can experience the Horse Parade, where t
                                   : ""
                               }
 
-                              <p>${day.description}</p>
+                              <p class="day-description">${day.description}</p>
                               <div class="img-bar-container">
                                 <img class="image" src="${day.img}" alt="" />
                                 
@@ -436,6 +439,8 @@ Later, within the Royal Fairgrounds, we can experience the Horse Parade, where t
 
           clickedInfo.classList.toggle("show");
 
+          // Scroll to the clicked day container
+          clickedInfo.scrollIntoView({ behavior: "smooth" });
           if (!clickedInfo.classList.contains("show")) {
             clickedInfo.classList.toggle("hide-animation");
             setTimeout(() => {

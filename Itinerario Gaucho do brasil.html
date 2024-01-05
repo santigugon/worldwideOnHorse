@@ -249,6 +249,9 @@
           flex-direction: column;
         }
       }
+      .day-description {
+        white-space: pre-line;
+      }
     </style>
   </head>
   <body>
@@ -277,9 +280,8 @@
           topography: false,
           route: false,
           description: `After breakfast, we saddle our horses early and leave around 09:00 direction Fazenda Rodeio Bonito. After the first few minutes, you will notice already how beautiful the region is, we ride through wide and rolling green countryside dotted with Araucaria trees and cross pristine rivers. You will never forget your first canter with your criollo horse. After a ride of 4 hours, we arrive at a typical Fazenda where lunch is waiting for us. After a good meal and a siesta, we mount our horses again around 14h. We continue towards Fazenda Rodeio Bonito through the beautiful landscape of Coxilha Rica.
-          <br>   
-          <br>      
-Here we find the well-preserved colonial Tropeiro Route. This 250 years old tropeiro route was the route of cattle and mules between Rio Grande do Sul and Argentina to Sao Paulo. Gauchos drove herds thousands of km beeing away for months via this route. Goods on livestock traveled along the route, so the tropeiro became also a trade. The route, consisting of an approx 4m wide corridor made of stone was built by slaves. The corridor runs hundreds of kilometers through Coxilha Rica and the State of Santa Catarina. Tropeiro means Trooper. (The route of the troops). We follow a few miles this historic route and arrive around 17:30 at Fazenda Rodeio Bonito. We are welcomed by the owner Lucia. A hearty and delicious dinner is being prepared for us. We spent the night at this traditional Gaucho Fazenda. `,
+          
+          Here we find the well-preserved colonial Tropeiro Route. This 250 years old tropeiro route was the route of cattle and mules between Rio Grande do Sul and Argentina to Sao Paulo. Gauchos drove herds thousands of km beeing away for months via this route. Goods on livestock traveled along the route, so the tropeiro became also a trade. The route, consisting of an approx 4m wide corridor made of stone was built by slaves. The corridor runs hundreds of kilometers through Coxilha Rica and the State of Santa Catarina. Tropeiro means Trooper. (The route of the troops). We follow a few miles this historic route and arrive around 17:30 at Fazenda Rodeio Bonito. We are welcomed by the owner Lucia. A hearty and delicious dinner is being prepared for us. We spent the night at this traditional Gaucho Fazenda. `,
         },
         {
           name: "Fazenda Rodeio Bonito ",
@@ -344,7 +346,7 @@ Upon arrival at this Portuguese style Fazenda we pull off our boots, take a show
                                   : ""
                               }
 
-                              <p>${day.description}</p>
+                              <p class="day-description">${day.description}</p>
                               <div class="img-bar-container">
                                 <img class="image" src="${day.img}" alt="" />
                                 

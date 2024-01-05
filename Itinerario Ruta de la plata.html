@@ -249,6 +249,9 @@
           flex-direction: column;
         }
       }
+      .day-description {
+        white-space: pre-line;
+      }
     </style>
   </head>
   <body>
@@ -376,10 +379,10 @@
                                   : ""
                               }
 
-                              <p>${day.description}</p>
+                              <p class="day-description">${day.description}</p>
                               <div class="img-bar-container">
                                 <img class="image" src="${day.img}" alt="" />
-                                
+
                                 ${
                                   day.route
                                     ? `
@@ -389,7 +392,7 @@
                                         <div class="bar shadow aztec"></div>
                                         </div>`
                                     : ""
-                                } 
+                                }
                                       </div>
                                   </div>
 
@@ -398,11 +401,15 @@
 
         currDay++;
       });
+
       const buttons = document.querySelectorAll(`.button`);
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
           let clickedDay = e.target.getAttribute("day");
           const clickedInfo = document.querySelector(`.day-${clickedDay}`);
+          const dia = document.querySelector(`.dia-${clickedDay}`);
+
+          // Scroll to the clicked day container
 
           // Hide all other days
           document.querySelectorAll(".basic-info").forEach((dayInfo) => {
@@ -412,7 +419,6 @@
               dayInfo.classList.remove("show");
               let btn = document.querySelector(`.btn-${clickedDay}`);
               btn.innerHTML = "&plus;";
-            } else {
             }
           });
 
@@ -429,6 +435,15 @@
             clickedInfo.classList.toggle("hide-animation");
             button.innerHTML = "&minus;";
           }
+
+          const scrollPosition =
+            dia.getBoundingClientRect().top + window.scrollY;
+
+          // Scroll to the calculated position
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: "smooth",
+          });
         });
       });
       /*Progress bars*/

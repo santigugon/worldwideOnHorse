@@ -249,6 +249,9 @@
           flex-direction: column;
         }
       }
+      .day-description {
+        white-space: pre-line;
+      }
     </style>
   </head>
   <body>
@@ -361,7 +364,7 @@ Staying an extra night In Maceio is sometimes the best / cheapest option (wide r
                                   : ""
                               }
 
-                              <p>${day.description}</p>
+                              <p class="day-description">${day.description}</p>
                               <div class="img-bar-container">
                                 <img class="image" src="${day.img}" alt="" />
                                 
