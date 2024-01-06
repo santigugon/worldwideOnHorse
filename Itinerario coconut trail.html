@@ -386,11 +386,13 @@ Staying an extra night In Maceio is sometimes the best / cheapest option (wide r
 
         currDay++;
       });
+      const header = document.querySelector(".site-header");
       const buttons = document.querySelectorAll(`.button`);
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
           let clickedDay = e.target.getAttribute("day");
           const clickedInfo = document.querySelector(`.day-${clickedDay}`);
+          const dia = document.querySelector(`.dia-${clickedDay}`);
 
           // Hide all other days
           document.querySelectorAll(".basic-info").forEach((dayInfo) => {
@@ -417,6 +419,15 @@ Staying an extra night In Maceio is sometimes the best / cheapest option (wide r
             clickedInfo.classList.toggle("hide-animation");
             button.innerHTML = "&minus;";
           }
+          let scrollPosition = dia.getBoundingClientRect().top + window.scrollY;
+          if (header) {
+            scrollPosition -= header.offsetHeight;
+          }
+          // Scroll to the calculated position
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: "smooth",
+          });
         });
       });
       /*Progress bars*/

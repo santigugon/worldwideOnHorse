@@ -401,7 +401,7 @@
 
         currDay++;
       });
-
+      const header = document.querySelector(".site-header");
       const buttons = document.querySelectorAll(`.button`);
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -436,9 +436,11 @@
             button.innerHTML = "&minus;";
           }
 
-          const scrollPosition =
-            dia.getBoundingClientRect().top + window.scrollY;
+          let scrollPosition = dia.getBoundingClientRect().top + window.scrollY;
 
+          if (header) {
+            scrollPosition -= header.offsetHeight;
+          }
           // Scroll to the calculated position
           window.scrollTo({
             top: scrollPosition,

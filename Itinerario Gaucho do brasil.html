@@ -280,8 +280,8 @@
           topography: false,
           route: false,
           description: `After breakfast, we saddle our horses early and leave around 09:00 direction Fazenda Rodeio Bonito. After the first few minutes, you will notice already how beautiful the region is, we ride through wide and rolling green countryside dotted with Araucaria trees and cross pristine rivers. You will never forget your first canter with your criollo horse. After a ride of 4 hours, we arrive at a typical Fazenda where lunch is waiting for us. After a good meal and a siesta, we mount our horses again around 14h. We continue towards Fazenda Rodeio Bonito through the beautiful landscape of Coxilha Rica.
-          
-          Here we find the well-preserved colonial Tropeiro Route. This 250 years old tropeiro route was the route of cattle and mules between Rio Grande do Sul and Argentina to Sao Paulo. Gauchos drove herds thousands of km beeing away for months via this route. Goods on livestock traveled along the route, so the tropeiro became also a trade. The route, consisting of an approx 4m wide corridor made of stone was built by slaves. The corridor runs hundreds of kilometers through Coxilha Rica and the State of Santa Catarina. Tropeiro means Trooper. (The route of the troops). We follow a few miles this historic route and arrive around 17:30 at Fazenda Rodeio Bonito. We are welcomed by the owner Lucia. A hearty and delicious dinner is being prepared for us. We spent the night at this traditional Gaucho Fazenda. `,
+
+                Here we find the well-preserved colonial Tropeiro Route. This 250 years old tropeiro route was the route of cattle and mules between Rio Grande do Sul and Argentina to Sao Paulo. Gauchos drove herds thousands of km beeing away for months via this route. Goods on livestock traveled along the route, so the tropeiro became also a trade. The route, consisting of an approx 4m wide corridor made of stone was built by slaves. The corridor runs hundreds of kilometers through Coxilha Rica and the State of Santa Catarina. Tropeiro means Trooper. (The route of the troops). We follow a few miles this historic route and arrive around 17:30 at Fazenda Rodeio Bonito. We are welcomed by the owner Lucia. A hearty and delicious dinner is being prepared for us. We spent the night at this traditional Gaucho Fazenda. `,
         },
         {
           name: "Fazenda Rodeio Bonito ",
@@ -303,7 +303,7 @@
           topography: false,
           route: false,
           description: `After breakfast, we saddle our horses. Depending on the season sometimes before heading fo we sometimes give the Gauchos a helping hand at the farm rounding-up some cattle or sheep on horseback. We drive the herd to the corral, where they are either vaccinated or receive some treatment. So here on on another farm during our week you will see the Gaúcho perform his daily job. Those who prefer not to participate in the activities can easily watch. Want to learn how to rope? Our Gauchos teach you the tricks of the trade! After lunch, we continue our ride to the Colonial Fazenda Sâo Joâo.
-Upon arrival at this Portuguese style Fazenda we pull off our boots, take a shower and are called to the table for a good meal, a cool beer or a warming Pinga (local rum).`,
+      Upon arrival at this Portuguese style Fazenda we pull off our boots, take a shower and are called to the table for a good meal, a cool beer or a warming Pinga (local rum).`,
         },
         {
           name: "Fazenda Sâo Joâo - Fazenda Ferradura",
@@ -330,49 +330,55 @@ Upon arrival at this Portuguese style Fazenda we pull off our boots, take a show
       let currDay = 1;
       days.forEach((day) => {
         let html = `
-                            <div id="root" class="dia dia-${currDay}">
-                              <h2>DAY ${currDay}:  ${day.name}</h2>
-                              <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
-                            </div>
-                            <div class="basic-info hide hide-animation day-${currDay}">
-                              ${
-                                day.route
-                                  ? `<h4>Route: <em>${day.route}</em></h4>`
-                                  : ""
-                              }
-                              ${
-                                day.topography
-                                  ? `<h4>Topography: <em>${day.topography}</em></h4>`
-                                  : ""
-                              }
-
-                              <p class="day-description">${day.description}</p>
-                              <div class="img-bar-container">
-                                <img class="image" src="${day.img}" alt="" />
-                                
-                                ${
-                                  day.route
-                                    ? `
-                                    <div>
-                                      <h3>Progress Day ${currDay}</h3>
-                                      <div class="progress">
-                                        <div class="bar shadow aztec"></div>
-                                        </div>`
-                                    : ""
-                                } 
-                                      </div>
+                                  <div id="root" class="dia dia-${currDay}">
+                                    <h2>DAY ${currDay}:  ${day.name}</h2>
+                                    <div class="button btn-${currDay}" day="${currDay}">&plus;</div>
                                   </div>
+                                  <div class="basic-info hide hide-animation day-${currDay}">
+                                    ${
+                                      day.route
+                                        ? `<h4>Route: <em>${day.route}</em></h4>`
+                                        : ""
+                                    }
+                                    ${
+                                      day.topography
+                                        ? `<h4>Topography: <em>${day.topography}</em></h4>`
+                                        : ""
+                                    }
 
-                          `;
+                                    <p class="day-description">${
+                                      day.description
+                                    }</p>
+                                    <div class="img-bar-container">
+                                      <img class="image" src="${
+                                        day.img
+                                      }" alt="" />
+
+                                      ${
+                                        day.route
+                                          ? `
+                                          <div>
+                                            <h3>Progress Day ${currDay}</h3>
+                                            <div class="progress">
+                                              <div class="bar shadow aztec"></div>
+                                              </div>`
+                                          : ""
+                                      }
+                                            </div>
+                                        </div>
+
+                                `;
         document.querySelector(".day-container").innerHTML += html;
 
         currDay++;
       });
+      const header = document.querySelector(".site-header");
       const buttons = document.querySelectorAll(`.button`);
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
           let clickedDay = e.target.getAttribute("day");
           const clickedInfo = document.querySelector(`.day-${clickedDay}`);
+          const dia = document.querySelector(`.dia-${clickedDay}`);
 
           // Hide all other days
           document.querySelectorAll(".basic-info").forEach((dayInfo) => {
@@ -399,6 +405,18 @@ Upon arrival at this Portuguese style Fazenda we pull off our boots, take a show
             clickedInfo.classList.toggle("hide-animation");
             button.innerHTML = "&minus;";
           }
+          let scrollPosition =
+            dia.getBoundingClientRect().top + window.scrollY;
+
+          // Scroll to the calculated position
+          if (header) {
+            scrollPosition -= header.offsetHeight;
+          }
+
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: "smooth",
+          });
         });
       });
       /*Progress bars*/
@@ -415,18 +433,18 @@ Upon arrival at this Portuguese style Fazenda we pull off our boots, take a show
         bar.style.width = `${curr}%`;
       });
       /*GALERIA
-                                    <div class="gallery">
-                                        <img
-                                          src="https://picsum.photos/id/174/400/400"
-                                          alt="a hot air balloon"
-                                        />
-                                        <img
-                                          src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
-                                          alt="a sky photo of an old city"
-                                        />
-                                        <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
-                                        <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
-                                      </div>*/
+                                          <div class="gallery">
+                                              <img
+                                                src="https://picsum.photos/id/174/400/400"
+                                                alt="a hot air balloon"
+                                              />
+                                              <img
+                                                src="https://worldwideonhorse.com/wp-content/uploads/2023/12/305767515_501160572018134_8946114616334915607_n-1024x768.jpg"
+                                                alt="a sky photo of an old city"
+                                              />
+                                              <img src="https://picsum.photos/id/211/400/400" alt="a small boat" />
+                                              <img src="https://picsum.photos/id/28/400/400" alt="a forest" />
+                                            </div>*/
     </script>
   </body>
 </html>
